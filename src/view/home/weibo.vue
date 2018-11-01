@@ -62,7 +62,7 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
        domain:"",
        focus:{
          bg_image:require("../../image/weibo/bg.png"),
-         focus_url:"www.baidu.com",
+         focus_url:"https://www.weibo.com/u/6728889134",
          id:1,
          image:require("../../image/weibo/header.png"),
          subtitle:"知名体育博主 知名博主",

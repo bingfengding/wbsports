@@ -2,21 +2,22 @@
   <div id="home" class="d_jump">
  
     <header>
-      <el-row class="header">
-        <el-col :span="8" class="headerLeft">
-          <div class="svgBox"></div>
-          
-        </el-col>
-        <el-col :span="16" class="headerRight">
-          <!-- <div class="headerTop">
-            <div class="headerLogoBox">
-              <div class="headerLogo" 
-                v-for="(item,index) in logBox" 
-                :key="index">
-                <img :src="item.url" alt="">
+      <hbox class="header" :pose="headerShow?'show':'hide'">
+        <div class="headerLeft" :class="headerShow?'':'hideBorder'">
+          <hbox-left class="svgBox" :pose="headerShow?'show':'hide'"></hbox-left>
+        </div>
+        <div  class="headerRight"  :pose="headerShow?'show':'hide'">
+          <hbox-right  class="headerTop">
+            <div class="fenBox">
+              <div class="bdsharebuttonbox" data-tag="share_1">
+                <a class="bds_tsina" data-cmd="tsina"></a>
+                <a class="bds_weixin" data-cmd="weixin"></a>
+                <a class="bds_linkedin" data-cmd="linkedin"></a>
+                <a class="bds_twi" data-cmd="twi"></a>
+                <a class="bds_fbook" data-cmd="fbook"></a>
               </div>
             </div>
-          </div> -->
+          </hbox-right>
           <div class="headerBottom">
             <div class="list-shortcut">
               <div class="step">
@@ -24,8 +25,9 @@
               </div>
             </div>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+
+      </hbox>
     </header>
     <main>
       <ul>
@@ -84,10 +86,9 @@
                   </div>
                   <div class="newTeamLeft">最新赛事</div>
                 </div>
-                <div class="smallNew">
+                <!-- <div class="smallNew">
                   <div class="samllBox" v-cloak v-for="(item,index) in samllBoxs" :key="index">
                     <div class="smallNewImg" :style="'backgroundImage:url('+domain+item.image+')'">
-                      <!-- <img :src="domain+item.image" alt=""> -->
                     </div>
                     <div class="smallNewText">
                       <p class="ft18">{{item.cn_name}}</p>
@@ -105,7 +106,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
         </li>
@@ -141,6 +142,7 @@ import {banner, competition, hot} from "@/api/home/home"
  export default {
    data () {
       return {
+        headerShow:true,
         domain:"",
         homeOption:{
           pagination: {
@@ -256,6 +258,23 @@ import {banner, competition, hot} from "@/api/home/home"
   mounted(){
     this.$nextTick(function () {
       window.addEventListener('scroll', this.onScroll)
+      this.$nextTick(()=>{
+      window._bd_share_config = {
+        "common":{
+          "bdSnsKey":{},
+          "bdText":"",
+          "bdMini":"2",
+          "bdPic":"",
+          "bdStyle":"0",
+          "bdSize":"16"
+        },
+        "share":{}
+      };
+      const s = document.createElement('script')
+      s.type = 'text/javascript'
+      s.src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+      document.body.appendChild(s)
+    })
     })
   },
   methods:{
@@ -285,6 +304,12 @@ import {banner, competition, hot} from "@/api/home/home"
       } else  {
         this.steps.active = 0
       }
+
+      if(scrolled==0){
+        this.headerShow = true
+      }else{
+        this.headerShow = false
+      }
     },
 
     toArticle(id,type){
@@ -293,21 +318,46 @@ import {banner, competition, hot} from "@/api/home/home"
         type
       };
       this.$store.commit('setNewsDetail',{..._obj})
-      this.$router.push('/article')
+      let _url = "/article?type=" + type +"&id=" +id
+      this.$router.push(_url)
     }
-
-
-   },
-   components: {
-     leftStep,
-     swiper,
-     swiperSlide,
-     newsListBox,
-     photos,
-     place,
-     weibo,
-     videos
-   }
+  },
+    components: {
+      leftStep,
+      swiper,
+      swiperSlide,
+      newsListBox,
+      photos,
+      place,
+      weibo,
+      videos,
+      hbox:posed.div({
+        show:{
+          height:150
+        },
+        hide:{
+          height:70
+        }
+      }),
+      hboxLeft:posed.div({
+        show:{
+          width:240,
+          height:80
+        },
+        hide:{
+          width:120,
+          height:40
+        }
+      }),
+      hboxRight:posed.div({
+        show:{
+          height:80
+        },
+        hide:{
+          height:0
+        }
+      })
+    }
  }
 </script>
 
@@ -320,38 +370,68 @@ import {banner, competition, hot} from "@/api/home/home"
     top 0
     width 100%
     .header
-      height 70px
+      height 150px
       background-color #0c132a
+      display flex
+      justify-content center
       .headerLeft
         height inherit
         display flex
         justify-content flex-end
         align-items center
         padding-right 5%
+        width 34%
+        border-right 1px solid #555a6a
+        &.hideBorder
+          border-right 1px solid #0c132a
         .svgBox
           width 120px
           height 40px
           background url("../image/home/logo_05.svg") no-repeat
-          background-size 120px auto
+          background-size 100% auto
           background-position: 0 0;
       .headerRight
+        width 66%
         .headerTop
           height 80px
           border-bottom 1px solid #555a6a
           display flex
           justify-content flex-end
           padding-right 20%
-          .headerLogoBox
-            border-left 1px solid #555a6a
+          overflow hidden
+          .fenBox
+          display flex
+          align-items center
+          .bdsharebuttonbox
             display flex
-            justify-content center
             align-items center
-            .headerLogo
-              border-right 1px solid #555a6a
-              padding 0 40px
-              height 80px
-              display flex
-              align-items center
+            a
+              padding-left 0
+              margin-left 20px
+              width 30px
+              height 30px
+              background-size 100% 100%
+              background-position 0
+              &:first-of-type
+                margin-left 0
+            .bds_tsina
+
+              background-image url("../image/home/weibo.png")
+              
+            .bds_weixin
+              background-image url("../image/home/wechat.png")
+            .bds_linkedin
+
+              background-image url("../image/home/insta.png")
+  
+            .bds_twi
+
+              background-image url("../image/home/twitter.png")
+    
+            .bds_fbook
+
+              background-image url("../image/home/facebook.png")
+   
         .headerBottom
           display flex
           justify-content flex-end
@@ -434,8 +514,8 @@ import {banner, competition, hot} from "@/api/home/home"
             height 580px
             position relative
             display flex
-            align-items flex-end
-            padding-bottom 60px
+            align-items flex-start
+            padding-top 170px
             .teamPosition
               .teamImgBox
                 display flex
@@ -463,7 +543,7 @@ import {banner, competition, hot} from "@/api/home/home"
           .newTeamLeft
             position absolute
             left 60px
-            bottom 350px
+            top 60px
             font-size 40px
         .smallNew
           top -80px

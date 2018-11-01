@@ -57,7 +57,6 @@
                   <a class="bds_tsina" data-cmd="tsina"></a>
                   <a class="bds_weixin" data-cmd="weixin"></a>
                 </div>
-
               </div>
             </div>
           </div>
@@ -275,10 +274,20 @@ export default {
      }
    },
     created(){
-      
+      let _obj = {}
+      let num = window.location.hash.indexOf('?')
+      if(num+1){
+        let _string = window.location.hash.slice(num+1)
+        let _arr1 = _string.split("&")
+        _arr1.forEach((item)=>{
+          let _arr2 = item.split("=")
+          _obj[_arr2[0]] = _arr2[1]
+        })
 
+      }else {
+        _obj = this.getNewsDetail
+      }
 
-      let _obj = this.getNewsDetail
       newsDetail({..._obj}).then(res=>{
         if(res.status==200){
           let _base = res.data.data
@@ -286,7 +295,6 @@ export default {
           this.videoList = _base.relationVideos
           this.newsList = _base.relationNews
           this.title = _base.newsDetail.cn_title
-  
           this.articleContent = _base.newsDetail.maincontent
           this.bannerImg = this.domain+_base.newsDetail.image
         }
@@ -348,7 +356,6 @@ export default {
       })
     },
   methods:{
-   
     guanzhu(){
         window.open(this.focus.focus_url)
       },
@@ -356,9 +363,23 @@ export default {
       let _obj = {
         id,
         type
-      };
+      }
       this.$store.commit('setNewsDetail',{..._obj})
-      let _obj1 = this.getNewsDetail
+      let _url = "/article?type=" + type +"&id=" +id
+      this.$router.push(_url)
+      let _obj1 = {}
+      let num = window.location.hash.indexOf('?')
+      if(num+1){
+        let _string = window.location.hash.slice(num+1)
+        let _arr1 = _string.split("&")
+        _arr1.forEach((item)=>{
+          let _arr2 = item.split("=")
+          _obj1[_arr2[0]] = _arr2[1]
+        })
+
+      }else {
+        _obj1 = this.getNewsDetail
+      }
       newsDetail({..._obj1}).then(res=>{
         if(res.status==200){
           let _base = res.data.data
@@ -489,13 +510,13 @@ export default {
             padding 20px 0 30px 0
           .leftHtmlBox
             width 834px
-            height 1500px
+            height auto
             overflow hidden
             .leftHtml
               overflow hidden
               padding-right 20px
               width 854px
-              height 1500px
+              height auto
               overflow-y auto
           .leftBottom
             padding-top 40px

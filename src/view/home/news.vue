@@ -211,6 +211,11 @@ import {news} from "@/api/home/home"
               width 390px
               padding 20px 0
               line-height 60px
+              overflow hidden
+              text-overflow: ellipsis
+              display -webkit-box
+              -webkit-line-clamp 3
+              -webkit-box-orient vertical
             .bgOrange
               display inline-block
               background-color #ff8b47
