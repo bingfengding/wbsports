@@ -16,7 +16,7 @@
         <div class="placeRight">
           <p class="ft60">万博体育</p>
           <p class="ft84">骑士殿堂</p>
-          <p>万博体育给你最新咨询</p>
+          <p>万博体育给你最新资讯</p>
           <div class="imgBox">
             <div class="img" v-cloak v-for="(item,index) in imgList" :key="index" @click="changeBigImg(index)">
               <img :src="domain+item.s_image" alt="">
@@ -41,8 +41,8 @@ export default {
       imgList:[
         {
           img_title:"英超最佳球员",
-          s_image:require("../../image/place/1.png"),
-          l_image:require("../../image/place/1_b.png")
+          s_image:require("../../image/home/place/1.png"),
+          l_image:require("../../image/home/place/1_b.png")
         }
       ],
     
@@ -94,7 +94,7 @@ export default {
 
 <style lang="stylus" scoped>
 #place
-  padding-top 150px
+  padding 100px 0 40px 0
   display flex
   justify-content center
   @keyframes draw

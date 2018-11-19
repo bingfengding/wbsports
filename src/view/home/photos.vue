@@ -6,7 +6,7 @@
       <swiper-slide 
         class="photosSwiperSlide"
        >
-       <img src="../../image/photos/0.png" alt="">
+       <img src="../../image/home/photos/0.png" alt="">
       </swiper-slide>
       <swiper-slide 
       class="photosSwiperSlide"
@@ -40,7 +40,7 @@ import {gallery} from "@/api/home/home"
         isTranslate:false,
         photosList:[
           {
-            image:require("../../image/photos/1.png"),
+            image:require("../../image/home/photos/1.png"),
             id:1,
           }
         ],

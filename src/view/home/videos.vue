@@ -10,7 +10,7 @@
        <div class="swiperModel">
          <div class="textBox">
             <div class="textImg">
-              <img src="../../image/videos/playButton.png" alt="">
+              <img src="../../image/home/videos/playButton.png" alt="">
             </div>
             <div class="text">
               {{item.cn_title}}
@@ -44,7 +44,7 @@ import {videos} from "@/api/home/home"
         domain:"",
         ifShowVideo:false,
         state:false,
-        baseVideo:require("../../image/videos/1.mp4"),
+        baseVideo:require("../../image/home/videos/1.mp4"),
         videosOption:{
           slidesPerView: 3,
           slidesPerColumn : 2,
@@ -64,8 +64,8 @@ import {videos} from "@/api/home/home"
         videosList:[
           {
             cn_title:"原本以为是青铜 结果是个王者",
-            url:require("../../image/videos/1.mp4"),
-            image:require("../../image/videos/video_01.png"),
+            url:require("../../image/home/videos/1.mp4"),
+            image:require("../../image/home/videos/video_01.png"),
             id:1,
           }]
      }
@@ -160,7 +160,7 @@ import {videos} from "@/api/home/home"
 
 <style lang="stylus">
 #videos
-  padding-top 150px
+  padding-top 100px
   position relative
   .videos-swiper-pagination
     position absolute

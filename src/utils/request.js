@@ -5,11 +5,9 @@ import {
   Message
 } from 'element-ui'
 
-
 // create an axios instance
 const service = axios.create({
-  baseURL: "http://api.wanbosports.com", 
-  //baseURL: "http://api.teoffie.com", 
+  baseURL: process.env.BASE_API,
   timeout: 5000, // request timeout
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'

@@ -2,36 +2,10 @@
 <template>
 
   <div id="article">
-    
-    <header>
-      <el-row class="header">
-        <el-col :span="8" class="headerLeft">
-          <div class="svgBox" @click="gotoHome"></div>
-        </el-col>
-        <el-col :span="16" class="headerRight">
-          <!-- <div class="headerTop">
-            <div class="headerLogoBox">
-              <div class="headerLogo" v-for="(item,index) in logBox" :key="index">
-                <img :src="item.url" alt="">
-              </div>
-            </div>
-          </div> -->
-          <div class="headerBottom">
-            <div class="list-shortcut">
-          
-                <div class="headerItem" v-cloak v-for="(item,index) in headerList" :key="index" @click="gotoHome">
-                  {{item.title}}
-                </div>
-              
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </header>
     <div class="main">
       <div class="mainCen">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/news' }">新闻资讯</el-breadcrumb-item>
           <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="bannerImg" :style="'backgroundImage:url('+bannerImg+')'">
@@ -49,10 +23,6 @@
             <div class="leftBottom">
               <p class="leftFen">分享:</p>
               <div class="fenBox">
-                <!-- <div class="weibo"><img src="../image/article/weibo.png" alt=""></div>
-                <div class="wechat"
-                @click="fenWechat"
-                ><img src="../image/article/wechat.png" alt=""></div> -->
                 <div class="bdsharebuttonbox" data-tag="share_1">
                   <a class="bds_tsina" data-cmd="tsina"></a>
                   <a class="bds_weixin" data-cmd="weixin"></a>
@@ -65,8 +35,7 @@
               <p class="ft48">相关新闻</p>
               <div class="newsBox"> 
                 <div class="newsItem" v-cloak v-for="(item,index) in newsList" :key="index">
-                  <div class="newsImgBox">
-                    <img :src="domain+item.image" alt="">
+                  <div class="newsImgBox" :style="'backgroundImage:url('+domain+item.image+')'">
                   </div>
                   <div class="textBox">
                     <p><span class="colorOrange">{{item.cn_name}}</span>/{{item.startdate}}</p>
@@ -88,7 +57,7 @@
                 </div>
               </div>
             </div>
-            <div class="video" v-show="videoList[0]">
+            <!-- <div class="video" v-show="videoList[0]">
               <p class="ft48">相关视频</p>
               <div class="videoBox">
                 <div class="videoItem" v-cloak v-for="(item,index) in videoList" :key="index" :style="'backgroundImage:url('+domain+item.image+')'"
@@ -104,7 +73,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -117,7 +86,7 @@
       </transition>
     </div>
    
-    <div class="weibo">
+    <!-- <div class="weibo">
       <div class="placeText">
           <div class="textBox" v-cloak v-for="(item,index) in textList" :key="index">
             <p class="text1"><span class="colorOrange">{{item.cn_name}}</span>/{{item.startdate}}</p>
@@ -137,41 +106,40 @@
             
           </div>
         </div>
-    <div class="weiboHeader" :style="domain? 'backgroundImage:url('+domain+focus.bg_image+')':'backgroundImage:url('+focus.bg_image+')' ">
-      <div class="abTop"></div>
-      <div class="abBottom"> </div>
-      <div class="textBox">
-        <div class="headerImg">
-          <img :src=" domain+focus.image" alt="">
-        </div>
-        <div class="textList">
-          <div class="listImg">
-            <img src="../image/weibo/title.png" alt="">
+      <div class="weiboHeader" :style="domain? 'backgroundImage:url('+domain+focus.bg_image+')':'backgroundImage:url('+focus.bg_image+')' ">
+        <div class="abTop"></div>
+        <div class="abBottom"> </div>
+        <div class="textBox">
+          <div class="headerImg">
+            <img :src=" domain+focus.image" alt="">
           </div>
-          <p class="textListP">{{focus.subtitle}}</p>
-          <div class="btn" @click="guanzhu">
-            + 关注
+          <div class="textList">
+            <div class="listImg">
+              <img src="../image/weibo/title.png" alt="">
+            </div>
+            <p class="textListP">{{focus.subtitle}}</p>
+            <div class="btn" @click="guanzhu">
+              + 关注
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="line">
-      <div class="lineImgBox">
-        <img src="../image/weibo/title2.png" alt="">
+      <div class="line">
+        <div class="lineImgBox">
+          <img src="../image/weibo/title2.png" alt="">
+        </div>
+        
       </div>
-      
-    </div>
-    <div class="incoBox">
+      <div class="incoBox">
       <div class="incoBoxImg" v-cloak v-for="(item,index) in incoList" :key="index">
         <img :src="domain?domain +item.smallimage:item.smallimage" alt="">
     
         </div>
-    </div>
-  </div>
+      </div>
+    </div> -->
   </div>
 </template>
 <script>
-import weibo from "./home/weibo"
 import player from '@/components/player'
 import {newsDetail,focus,newslist,support} from "@/api/home/home"
 import { mapGetters } from 'vuex'
@@ -182,7 +150,7 @@ export default {
       domain:"",
       ifShowVideo:false,
       state:false,
-      baseVideo:require("../image/videos/1.mp4"),
+      baseVideo:require("../image/home/videos/1.mp4"),
       title:"我以为是青铜没想到是王者安排",
       bannerImg:require("../image/article/banner.png"),
       logBox:[
@@ -194,29 +162,7 @@ export default {
             url:require("../image/home/logo_04.png")
           },
         ],
-        headerList:[
-          {
-            title:"首页",
-            top:"",
-          },{
-            title:"新闻咨询",
-            top:"",
-          },
-          // {
-          //   title:"精彩视频",
-          //   top:"",
-          // },{
-          //   title:"最新相册",
-          //   top:"",
-          // },
-          {
-            title:"骑士殿堂",
-            top:"",
-          },{
-            title:"万博体育微博",
-            top:"",
-          },
-        ],
+    
         newsList:[
           {
             image:require("../image/article/news_01.png"),
@@ -231,14 +177,14 @@ export default {
           {
             image:require("../image/article/video_01.png"),
             cn_title:"原本以为是青铜 结果是王者",
-            url:require("../image/videos/1.mp4"),
+            url:require("../image/home/videos/1.mp4"),
             id:1,
           }
         ],
         articleContent:"訴紀出是！的家星，家",
         focus:{
          bg_image:require("../image/weibo/bg.png"),
-         focus_url:"www.baidu.com",
+         focus_url:"https://www.weibo.com/u/6728889134",
          id:1,
          image:require("../image/weibo/header.png"),
          subtitle:"知名体育博主 知名博主",
@@ -254,19 +200,19 @@ export default {
         {
           cn_name:"英超",
           startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
+          cn_title:"最新最全的英超资讯都在这里",
           url:"",
           id:1,
         },{
           cn_name:"英超",
           startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
+          cn_title:"最新最全的英超资讯都在这里",
           url:"",
            id:2,
         },{
           cn_name:"英超",
           startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
+          cn_title:"最新最全的英超资讯都在这里",
           url:"",
            id:3,
         },
@@ -274,31 +220,7 @@ export default {
      }
    },
     created(){
-      let _obj = {}
-      let num = window.location.hash.indexOf('?')
-      if(num+1){
-        let _string = window.location.hash.slice(num+1)
-        let _arr1 = _string.split("&")
-        _arr1.forEach((item)=>{
-          let _arr2 = item.split("=")
-          _obj[_arr2[0]] = _arr2[1]
-        })
-
-      }else {
-        _obj = this.getNewsDetail
-      }
-
-      newsDetail({..._obj}).then(res=>{
-        if(res.status==200){
-          let _base = res.data.data
-          this.domain = _base.domain
-          this.videoList = _base.relationVideos
-          this.newsList = _base.relationNews
-          this.title = _base.newsDetail.cn_title
-          this.articleContent = _base.newsDetail.maincontent
-          this.bannerImg = this.domain+_base.newsDetail.image
-        }
-      })
+      this.getUrl()
       //  关注
     focus().then(res=>{
       if(res.status ===200){
@@ -334,6 +256,12 @@ export default {
     beforeCreate(){
        window._bd_share_main = "";
     },
+    watch:{
+      $route(to,from){
+        if(to.name === "article")
+        this.getUrl()
+      }
+    },
     mounted(){
       
       this.$nextTick(()=>{
@@ -356,8 +284,35 @@ export default {
       })
     },
   methods:{
+    getUrl(){
+      let _obj = {}
+      let num = window.location.hash.indexOf('?')
+      if(num+1){
+        let _string = window.location.hash.slice(num+1)
+        let _arr1 = _string.split("&")
+        _arr1.forEach((item)=>{
+          let _arr2 = item.split("=")
+          _obj[_arr2[0]] = _arr2[1]
+        })
+
+      }else {
+        _obj = this.getNewsDetail
+      }
+
+      newsDetail({..._obj}).then(res=>{
+        if(res.status==200){
+          let _base = res.data.data
+          this.domain = _base.domain
+          this.videoList = _base.relationVideos
+          this.newsList = _base.relationNews
+          this.title = _base.newsDetail.cn_title
+          this.articleContent = _base.newsDetail.maincontent
+          this.bannerImg = this.domain+_base.newsDetail.image
+        }
+      })
+    },
     guanzhu(){
-        window.open(this.focus.focus_url)
+        window.top.open(this.focus.focus_url)
       },
     toArticle(id,type){
       let _obj = {
@@ -422,7 +377,6 @@ export default {
     }
   },
   components: {
-    weibo,
     player
   }
 }
@@ -430,63 +384,7 @@ export default {
 
 <style lang="stylus" scoped>
 #article
-  padding-top 120px
-  header
-    z-index 99
-    position fixed
-    top 0
-    width 100%
-    .header
-      height 70px
-      background-color #0c132a
-      .headerLeft
-        height inherit
-        display flex
-        justify-content flex-end
-        align-items center
-        padding-right 5%
-        //border-right 1px solid #555a6a
-        .svgBox
-          width 120px
-          height 40px
-          background url("../image/home/logo_05.svg") no-repeat
-          background-size 120px auto
-          background-position: 0 0
-      .headerRight
-        .headerTop
-          height 80px
-          border-bottom 1px solid #555a6a
-          display flex
-          justify-content flex-end
-          padding-right 20%
-          .headerLogoBox
-            border-left 1px solid #555a6a
-            display flex
-            justify-content center
-            align-items center
-            .headerLogo
-              border-right 1px solid #555a6a
-              padding 0 40px
-              height 80px
-              display flex
-              align-items center
-        .headerBottom
-          display flex
-          justify-content flex-end
-          padding-right 20%
-          height 70px
-          align-items center
-          .list-shortcut
-            display flex
-            justify-content space-between
-            color #868994
-            .headerItem
-              margin-right 40px
-              cursor pointer
-              &:hover
-                color #ffffff
-              &:first-of-type
-                color #ffffff
+  padding-top 30px
   .main
     display flex
     justify-content center
@@ -546,6 +444,8 @@ export default {
                   display flex
                   justify-content center
                   align-items center
+                  background-position center center
+                  background-size cover
                   img
                     width 100%
                     height 100%
@@ -649,13 +549,13 @@ export default {
         background-position top right !important
         background-repeat no-repeat !important
         &:nth-of-type(1)
-          background url("../image/place/01.png")
+          background url("../image/home/place/01.png")
           margin-right 140px
         &:nth-of-type(2)
-          background url("../image/place/02.png")
+          background url("../image/home/place/02.png")
           margin-right 140px
         &:nth-of-type(3)
-          background url("../image/place/03.png")
+          background url("../image/home/place/03.png")
         .text1
           .colorOrange
             color #ff8b47

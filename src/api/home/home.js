@@ -32,10 +32,14 @@ export const hall = ()=>{
 }
 
 //新闻页面
-export const news = ()=>{
+export const news = (item)=>{
+  let data = {
+    ...item
+  }
   return request({
     url:"api/index/news",
     method:"post",
+    data
   })
 }
 
@@ -82,6 +86,39 @@ export const newslist = ()=>{
   return request({
     url:"api/index/newslist",
     method:"post",
+  })
+}
+//新闻页菜单栏
+export const newsmenu = ()=>{
+  return request({
+    url:"api/index/newsmenu",
+    method:"post",
+  })
+}
+
+// 赛事菜单栏
+export const schedulemenu = ()=>{
+  return request({
+    url:"api/index/schedulemenu",
+    method:"post",
+  })
+}
+//赛事详情
+export const schedule = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/schedule",
+    method:"post",
+    data
+  })
+}
+// 赞助媒体
+export const cooperation = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/cooperation",
+    method:"post",
+    data
   })
 }
 

@@ -1,24 +1,6 @@
 <template>
  <div id="weibo">
-    <div class="placeText">
-        <div class="textBox" v-cloak v-for="(item,index) in textList" :key="index">
-          <p class="text1"><span class="colorOrange">{{item.cn_name}}</span>/{{item.startdate}}</p>
-          <p class="text2">{{item.cn_title}}</p>
-          <div class="camBox">
-            <div class="camImg">
-               <img src="../../image/cam.png" alt="">
-            </div>
-           
-            <div class="moreText">
-            <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <rect class="shape" height="34" width="90"></rect>
-            </svg>
-            <div class="hover-text" @click="toArticle(item.id,'news')">更多精彩</div>
-          </div>
-          </div>
-          
-        </div>
-      </div>
+    
    <div class="weiboHeader" :style="domain? 'backgroundImage:url('+domain+focus.bg_image+')':'backgroundImage:url('+focus.bg_image+')' ">
      <div class="abTop"></div>
      <div class="abBottom"> </div>
@@ -28,7 +10,7 @@
        </div>
        <div class="textList">
          <div class="listImg">
-           <img src="../../image/weibo/title.png" alt="">
+           <img src="../image/weibo/title.png" alt="">
          </div>
          <p class="textListP">{{focus.subtitle}}</p>
          <div class="btn" @click="guanzhu">
@@ -39,9 +21,8 @@
    </div>
    <div class="line">
      <div class="lineImgBox">
-       <img src="../../image/weibo/title2.png" alt="">
+       <img src="../image/weibo/title2.png" alt="">
      </div>
-     
    </div>
    <div class="incoBox">
      <div class="incoBoxImg" v-cloak v-for="(item,index) in incoList" :key="index">
@@ -49,10 +30,22 @@
   
       </div>
    </div>
+   <div class="line">
+     <div class="lineImgBox">
+       媒体合作伙伴
+     </div>
+   </div>
+   <div class="media">
+     <div class="mediaBox">
+       <div class="mediaItem" v-for="(item,index) in media" :key="index">
+         <img :src="domain+item.smallimage" alt="">
+       </div>
+     </div>
+   </div>
  </div>
 </template>
 <script>
-import {newslist,focus,support,newsDetail } from "@/api/home/home"
+import {newslist,focus,support,newsDetail,cooperation} from "@/api/home/home"
  export default {
     props: {
     base: Boolean
@@ -61,10 +54,10 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
      return {
        domain:"",
        focus:{
-         bg_image:require("../../image/weibo/bg.png"),
+         bg_image:require("../image/weibo/bg.png"),
          focus_url:"https://www.weibo.com/u/6728889134",
          id:1,
-         image:require("../../image/weibo/header.png"),
+         image:require("../image/weibo/header.png"),
          subtitle:"知名体育博主 知名博主",
          title:"万博体育"
 
@@ -74,33 +67,37 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
            smallimage:""
          }
        ],
-       textList:[
-        {
-          cn_name:"英超",
-          startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
-          url:"",
-          id:1,
-        },{
-          cn_name:"英超",
-          startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
-          url:"",
-           id:2,
-        },{
-          cn_name:"英超",
-          startdate:"15.09.2018",
-          cn_title:"最新最全的英超咨询都在这里",
-          url:"",
-           id:3,
-        },
-      ]
+       media:[
+         {
+           smallimage:require("../image/weibo/1.png")
+         },
+         {
+           smallimage:require("../image/weibo/2.png")
+         },
+         {
+           smallimage:require("../image/weibo/3.png")
+         },
+         {
+           smallimage:require("../image/weibo/4.png")
+         },
+         {
+           smallimage:require("../image/weibo/5.png")
+         },
+         {
+           smallimage:require("../image/weibo/6.png")
+         },
+         {
+           smallimage:require("../image/weibo/7.png")
+         },
+       ]
+       
      }
    },
    watch:{
      
    },
    created(){
+     
     //  关注
     focus().then(res=>{
       if(res.status ===200){
@@ -110,13 +107,7 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
          this.focus = _base.focus
        }
     })
-     newslist().then(res=>{
-       if(res.status ===200){
-         let _base = res.data.data
-         this.domain = _base.domain
-         this.textList = _base.threeNews
-       }
-     })
+    
      support().then(res=>{
        if(res.status ===200){
           let _base = res.data.data
@@ -125,24 +116,21 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
 
        }
      })
+     cooperation().then(res=>{
+       if(res.status===200){
+         let _base = res.data.data
+       
+         this.domain = _base.domain
+         this.media = _base.cooperation
+    
+       }
+     })
    },
     methods:{
       guanzhu(){
-        window.open(this.focus.focus_url)
+        window.top.open(this.focus.focus_url)
       },
-      toArticle(id,type){
-        if(this.base){
-         
-        }else{
-          let _obj = {
-            id,
-            type
-          };
-          this.$store.commit('setNewsDetail',{..._obj})
-          this.$router.push('/article')
-        }
-        
-      }
+      
    },
    components: {
 
@@ -152,64 +140,7 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
 <style lang="stylus" scoped>
 #weibo
   padding-top 130px
-  .placeText
-    display flex
-    justify-content center
-    padding-bottom 110px
-    .textBox
-      width 350px
-      height 180px
-      background-position top right !important
-      background-repeat no-repeat !important
-      &:nth-of-type(1)
-        background url("../../image/place/01.png")
-        margin-right 140px
-      &:nth-of-type(2)
-        background url("../../image/place/02.png")
-        margin-right 140px
-      &:nth-of-type(3)
-        background url("../../image/place/03.png")
-      .text1
-        .colorOrange
-          color #ff8b47
-          padding-right 10px
-      .text2
-        font-size 30px
-        width 280px
-        margin 20px 0 20px 0
-        height 80px
-        overflow hidden
-        text-overflow: ellipsis
-        display -webkit-box
-        -webkit-line-clamp 2
-        -webkit-box-orient vertical
-      .camBox
-        display flex
-        align-items center
-        .camImg
-          padding-right 10px
-      .moreText
-        position relative
-        width 90px
-        height 34px
-        .shape
-          fill transparent
-          stroke-width: 2px
-          stroke: #ff8b47
-          stroke-dasharray: 60 188
-          stroke-dashoffset: 110
-        .hover-text
-          position absolute
-          line-height 34px
-          width 90px
-          top 0
-          cursor pointer
-          text-align center
-        &:hover
-          .hover-text
-            transition 0.5s
-          .shape
-            animation: draw 0.5s linear forwards
+  
   .weiboHeader
     background-size cover
     background-position center center
@@ -284,16 +215,37 @@ import {newslist,focus,support,newsDetail } from "@/api/home/home"
       top 50%
       left 50%
       transform translate(-50%,-50%)
+      color #737373
+      font-size 26px
       img 
         width auto 
         height 44px
   .incoBox
-    padding-bottom 80px
     display flex
     justify-content center
     align-items center
     .incoBoxImg
       margin 0 25px
+  .media
+    display flex
+    justify-content center
+    padding-bottom 100px
+    .mediaBox
+      display flex
+      justify-content center
+      align-items center
+      flex-wrap wrap
+      width 1200px
+      .mediaItem
+        margin 0 40px
+        width 200px
+        display flex
+        justify-content center
+        img
+          max-width 100%
+          width auto
+          height auto
+
       
 </style>
 
