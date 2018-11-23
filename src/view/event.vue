@@ -69,8 +69,18 @@
               </dir>
             </div>
           </div>
+          <div class="adBox2">
+            <div class="center" v-if="item.pin ==3" v-for="(item,index) in adBox" :key="index" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain + item.image" alt=""> -->
+            </div>
+          </div>
         </div>
         <div class="mainRight">
+          <div class="adBox1">
+            <div class="center" v-if="item.pin ==1" v-for="(item,index) in adBox" :key="index"  @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain + item.image" alt=""> -->
+            </div>
+          </div>
           <p class="title">
             {{ranking.title}}
           </p>
@@ -93,6 +103,11 @@
               </li>
             </ul>
           </div>
+          <div class="adBox1">
+            <div class="center" v-if="item.pin ==2" v-for="(item,index) in adBox" :key="index" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain + item.image" alt=""> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -100,7 +115,7 @@
 </template>
 
 <script>
-import {newsmenu,schedule,schedulemenu} from "@/api/home/home"
+import {newsmenu,schedule,schedulemenu,ad} from "@/api/home/home"
 export default {
   data () {
     return {
@@ -111,6 +126,13 @@ export default {
       activeIndex:null,
       domain:"",
       baseBanner:require("../image/news/swiper.jpg"),
+      adBox:[ {
+          id:1,
+          image:require("../image/home/ad1.png"),
+          pin:null,
+          title:"",
+          url:""
+        }],
       meuns:[{
         cn_name:"全部",
         descriptoncn:"",
@@ -171,6 +193,13 @@ export default {
         this.chooseMenu(this.activeIndex)
       }
     })
+    ad({type:"event"}).then(res=>{
+      if(res.status===200){
+  
+        let _base =res.data.data
+        this.adBox = _base.ad
+      }
+    })
     
   },
   methods:{
@@ -219,6 +248,9 @@ export default {
   
         }
       })
+    },
+    goUrl(url){
+      window.top.open(url)
     }
   },
   components: {
@@ -333,12 +365,22 @@ export default {
                 transition all 0.2s ease
                 &.down
                   transform rotate(180deg)
+        .adBox2
+          .center
+            max-width 920px
+            height 200px
+            cursor pointer
+            background-position center center
+            background-size cover
+            img
+              width 100%
+              height 100%
         .roundsList
           display flex
           justify-content flex-start
           flex-wrap wrap
           width 920px
-          padding-top 40px
+          padding 40px 0
           .roundsListItem
             width 50%
             height 140px
@@ -388,11 +430,25 @@ export default {
                 align-items center
       .mainRight
         min-width 420px
+        .adBox1
+          display flex
+          justify-content center
+          .center
+            width 410px
+            height 330px
+            cursor pointer
+            background-position center center
+            background-size cover
+            img
+              width 100%
+              height 100%
+
+
         .title
           color #ff8b47
           font-size 48px
         .integralBox
-          padding-top 30px
+          padding 30px 0
           ul
             li
               display flex

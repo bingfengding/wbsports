@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
     
     next()
   }else{
-    window.location.href = "https://m.wanbosports.com"
+    window.location.href = "http://m.wanbosports.com"
     if(isH5){//手机端点击了电脑网站
   
       // let newName = hostname.replace(/www/,'m')

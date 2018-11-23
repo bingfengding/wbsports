@@ -87,7 +87,6 @@ import {news} from "@/api/home/home"
        if(res.status ===200){
          let _base = res.data.data
          this.domain = _base.domain
-         console.log(_base)
          this.newsList = _base.news.rows
        }
      })
@@ -117,7 +116,7 @@ import {news} from "@/api/home/home"
 
 <style lang="stylus" scoped>
 #news
-  padding 100px 40px 0 40px
+  padding 60px 40px 0 40px
   .newsTitle
     display flex
     justify-content center

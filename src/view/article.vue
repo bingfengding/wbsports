@@ -29,8 +29,18 @@
                 </div>
               </div>
             </div>
+            <div class="adBox2">
+            <div class="center" v-if="item.pin ==3" v-for="(item,index) in adBox" :key="index" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain + item.image" alt=""> -->
+            </div>
+          </div>
           </div>
           <div class="conRight">
+            <div class="adBox1">
+              <div class="center" v-if="item.pin ==1" v-for="(item,index) in adBox" :key="index"  @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+                <!-- <img :src="domain + item.image" alt=""> -->
+              </div>
+            </div>
             <div class="news">
               <p class="ft48">相关新闻</p>
               <div class="newsBox"> 
@@ -57,6 +67,7 @@
                 </div>
               </div>
             </div>
+            
             <!-- <div class="video" v-show="videoList[0]">
               <p class="ft48">相关视频</p>
               <div class="videoBox">
@@ -74,6 +85,18 @@
                 </div>
               </div>
             </div> -->
+            <div class="adBox1">
+              <div class="center" 
+              v-if="item.pin ==1" 
+              v-for="(item,index) in adBox" 
+              :key="index"  
+              @click="goUrl(item.url)"
+              :style="'backgroundImage:url('+domain+item.image+')'"
+              
+              >
+                <!-- <img :src="domain + item.image" alt=""> -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -141,9 +164,8 @@
 </template>
 <script>
 import player from '@/components/player'
-import {newsDetail,focus,newslist,support} from "@/api/home/home"
+import {newsDetail,focus,newslist,support,ad} from "@/api/home/home"
 import { mapGetters } from 'vuex'
-import { setInterval, clearInterval } from 'timers';
 export default {
   data () {
     return {
@@ -153,6 +175,13 @@ export default {
       baseVideo:require("../image/home/videos/1.mp4"),
       title:"我以为是青铜没想到是王者安排",
       bannerImg:require("../image/article/banner.png"),
+      adBox:[ {
+          id:1,
+          image:require("../image/home/ad1.png"),
+          pin:null,
+          title:"",
+          url:""
+        }],
       logBox:[
           {
             url:require("../image/home/logo_02.png")
@@ -244,6 +273,13 @@ export default {
 
        }
      })
+      ad({type:"article"}).then(res=>{
+      if(res.status===200){
+        
+        let _base =res.data.data
+        this.adBox = _base.ad
+      }
+    })
      
     
     },
@@ -374,6 +410,9 @@ export default {
           clearInterval(timer)
         }
       },10)
+    },
+     goUrl(url){
+      window.top.open(url)
     }
   },
   components: {
@@ -424,8 +463,30 @@ export default {
               padding 20px 0 30px 0
               .bdsharebuttonbox
                 height 30px
+          .adBox2
+            .center
+              max-width 830px
+              height 200px
+              cursor pointer
+              background-position center center
+              background-size cover
+              img
+                width 100%
+                height 100%
         .conRight
           width 506px
+          .adBox1
+            display flex
+            justify-content center
+            .center
+              width 500px
+              height 330px
+              cursor pointer
+              background-position center center
+              background-size cover
+              img
+                width 100%
+                height 100%
           .news
             .ft48
               font-size 48px

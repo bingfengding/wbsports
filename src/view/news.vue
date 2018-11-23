@@ -83,13 +83,17 @@
         </div>
       </div>
     </div>
+    <div class="adBox">
+      <div class="center" v-if="item.pin" v-for="(item,index) in adBox" :key="index" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+        <!-- <img :src="domain + item.image" alt=""> -->
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {swiper,swiperSlide} from "vue-awesome-swiper"
-import {newsmenu,news,banner} from "@/api/home/home"
-import { setTimeout, setInterval, clearInterval } from 'timers';
+import {newsmenu,news,banner,ad} from "@/api/home/home"
 export default {
   data () {
     return {
@@ -102,6 +106,15 @@ export default {
       basePageSize:12,
       currentPage:1,
       baseBanner:require("../image/news/swiper.jpg"),
+      adBox:[
+        {
+          id:1,
+          image:require("../image/home/ad1.png"),
+          pin:null,
+          title:"",
+          url:""
+        }
+      ],
       newsOption:{
         // loop:true,
         // autoplay:true,
@@ -192,6 +205,11 @@ export default {
           }
         }
      )
+     ad({type:"news"}).then(res=>{
+        let _base = res.data.data
+
+        this.adBox = _base.ad
+     })
   },
   mounted(){
     this.$nextTick(()=>{
@@ -200,6 +218,9 @@ export default {
     })
   },
   methods:{
+    goUrl(url){
+      window.top.open(url)
+    },
     scroll(){
       
      
@@ -281,6 +302,19 @@ export default {
       stroke-dashoffset: 0
       stroke-width: 1px
       stroke: #ff8b47
+  .adBox
+    display flex
+    justify-content center
+    .center
+      width 1365px
+      height 200px
+      cursor pointer
+      margin 20px 0
+      background-position center center
+      background-size cover
+      img
+        width 100%
+        height 100%
   .header
     height 380px
     display flex

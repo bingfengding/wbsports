@@ -63,6 +63,14 @@
             </div>
           </div>
         </li>
+         <li class="adBox1">
+          <div class="center">
+            <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin !==3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain+item.image" alt=""> -->
+            </div>
+           
+          </div>
+        </li>
         <li  class="list-group newVideoBox" ref="listGroup">
           <news-list-box class="d_jump"></news-list-box>
           <!-- <videos class="d_jump"></videos> -->
@@ -70,9 +78,17 @@
         <!-- <li  class="list-group d_jump" ref="listGroup">
           <photos></photos>
         </li> -->
-        <li  class="list-group d_jump" ref="listGroup">
-          <place></place>
+       
+       <li class="adBox2">
+          <div class="center">
+            <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin ==3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+              <!-- <img :src="domain+item.image" alt=""> -->
+            </div>
+          </div>
         </li>
+        <!-- <li  class="list-group d_jump" ref="listGroup">
+          <place></place>
+        </li> -->
         <li  class="list-group d_jump" ref="listGroup">
           <div class="placeText">
             <div class="textBox" v-cloak v-for="(item,index) in textList" :key="index">
@@ -106,18 +122,14 @@ import newsListBox from "./home/news"
 import videos from "./home/videos"
 import photos from "./home/photos"
 import place from "./home/place"
-import {banner, competition, hot,newslist} from "@/api/home/home"
+import {banner, competition, hot,newslist,ad} from "@/api/home/home"
  export default {
    data () {
       return {
         domain:"",
         show:false,
         homeOption:{
-          // loop:true,
-          // autoplay:true,
-          // loopAdditionalSlides:1,
-          // observer:true,
-          // observeParents:true,
+          autoplay:true,
           pagination: {
             el: '.home-swiper-pagination',
             clickable :true,
@@ -188,6 +200,13 @@ import {banner, competition, hot,newslist} from "@/api/home/home"
             time:"2018.9.15 03:00"
           },
         ],
+        adBox:[{
+          id:0,
+          image:require("../image/home/ad1.png"),
+          title:"",
+          url:"",
+          pin:null
+        }]
       
       }
    },
@@ -207,6 +226,7 @@ import {banner, competition, hot,newslist} from "@/api/home/home"
           if(res.status ===200){
             let _base = res.data.data
             this.domain  = _base.domain
+            console.log(this.domain)
             this.homeSwiper = _base.banner
             this.show = true
           }else{
@@ -221,11 +241,26 @@ import {banner, competition, hot,newslist} from "@/api/home/home"
          this.textList = _base.threeNews
        }
      })
+     ad({type:'home'}).then(res=>{
+       if(res.status ===200){
+         let _base = res.data.data
+       
+         this.adBox = _base.ad
+   
+       }
+     })
    },
+   
   mounted(){
     
   },
+  computed:{
+    
+  },
   methods:{
+    goUrl(url){
+      window.top.open(url)
+    },
     goto(url){
       this.$router.push(url)
     },
@@ -257,8 +292,46 @@ import {banner, competition, hot,newslist} from "@/api/home/home"
   main
     z-index 1
     position relative
+
+    .adBox1
+      display flex
+      justify-content center
+      .center
+        width 1400px
+        height 200px
+        display flex
+        justify-content center
+        margin-bottom 30px
+        .imgBox
+          width 667px
+          height 200px
+          margin 0 15px
+          cursor pointer
+          background-position center center
+          background-size cover
+          img
+            width 100%
+            height 100%
+    .adBox2
+      display flex
+      justify-content center
+      padding-top 40px
+      .center
+        width 1400px
+        display flex
+        justify-content center
+        .imgBox
+          width 1365px
+          height 200px
+          cursor pointer
+          background-position center center
+          background-size cover
+          img
+            width 100%
+            height 100%
     .home
       position relative
+      padding-bottom 40px
       .homeSwiper
         .homeSwiperSlide
           height 600px

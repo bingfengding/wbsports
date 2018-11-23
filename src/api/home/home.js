@@ -122,3 +122,12 @@ export const cooperation = (item)=>{
   })
 }
 
+// ad广告图片获取
+export const ad = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/ad",
+    method:"post",
+    data
+  })
+}
