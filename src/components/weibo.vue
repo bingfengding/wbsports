@@ -21,13 +21,12 @@
    </div>
    <div class="line">
      <div class="lineImgBox">
-       <img src="../image/weibo/title2.png" alt="">
+       官方合作伙伴
      </div>
    </div>
    <div class="incoBox">
      <div class="incoBoxImg" v-cloak v-for="(item,index) in incoList" :key="index">
        <img :src="domain?domain +item.smallimage:item.smallimage" alt="">
-  
       </div>
    </div>
    <div class="line">

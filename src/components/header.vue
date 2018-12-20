@@ -3,19 +3,26 @@
     <header>
       <hbox class="header" :pose="headerShow?'show':'hide'">
         <div class="headerLeft" :class="headerShow?'':'hideBorder'">
-          <hbox-left class="svgBox" :pose="headerShow?'show':'hide'"
+          <div class="svgBox1">
+            <hbox-left class="svgBox" :pose="headerShow?'show':'hide'"
           @click.native="goto('/home')"
           ></hbox-left>
+          </div>
+          
         </div>
         <div  class="headerRight"  :pose="headerShow?'show':'hide'">
           <hbox-right  class="headerTop">
             <div class="fenBox">
-              <div class="bdsharebuttonbox" data-tag="share_1">
-                <a class="bds_tsina" data-cmd="tsina"></a>
-                <a class="bds_weixin" data-cmd="weixin"></a>
-                <a class="bds_linkedin" data-cmd="linkedin"></a>
-                <a class="bds_twi" data-cmd="twi"></a>
-                <a class="bds_fbook" data-cmd="fbook"></a>
+              <div class="fenxiangBox">
+                <a href="https://twitter.com/wanbosports?lang=en" target="_blank">
+                  <div class="instagram fenItem"></div>
+                </a>
+                <a href="https://www.facebook.com/wanbosports/" target="_blank">
+                <div class="facebook fenItem"></div>
+                </a>
+                <a href="https://twitter.com/wanbosports?lang=en" target="_blank">
+                <div class="twitter fenItem"></div>
+                </a>
               </div>
             </div>
           </hbox-right>
@@ -168,6 +175,10 @@ export default {
         border-right 1px solid #555a6a
         &.hideBorder
           border-right 1px solid #0c132a
+        .svgBox1
+          width 240px
+          display flex
+          justify-content flex-start
         .svgBox
           width 120px
           height 40px
@@ -187,35 +198,25 @@ export default {
           .fenBox
             display flex
             align-items center
-          .bdsharebuttonbox
+          .fenxiangBox
             display flex
             align-items center
             a
-              padding-left 0
-              margin-left 20px
-              width 30px
+              margin-left 30px
+            .fenItem
               height 30px
-              background-size 100% 100%
-              background-position 0
-              &:first-of-type
-                margin-left 0
-            .bds_tsina
-
-              background-image url("../image/home/weibo.png")
-              
-            .bds_weixin
-              background-image url("../image/home/wechat.png")
-            .bds_linkedin
-
-              background-image url("../image/home/insta.png")
-  
-            .bds_twi
-
-              background-image url("../image/home/twitter.png")
-    
-            .bds_fbook
-
-              background-image url("../image/home/facebook.png")
+              width 30px
+              cursor pointer
+             
+              &.instagram
+                background url("../image/home/insta.png") no-repeat
+                background-size 100% 100%
+              &.facebook
+                background url("../image/home/facebook.png") no-repeat
+                background-size 100% 100%
+              &.twitter
+                background url("../image/home/twitter.png") no-repeat
+                background-size 100% 100%
    
         .headerBottom
           display flex

@@ -5,7 +5,8 @@
       <ul>
         <li  class="list-group schedule" ref="listGroup">
           <div class="home">
-            <swiper class="homeSwiper" ref="homeSwiper" :options="homeOption" v-if="show">
+            <div class="swiperBox">
+               <swiper class="homeSwiper" ref="homeSwiper" :options="homeOption" v-if="show">
               <swiper-slide class="homeSwiperSlide" :style="
               'backgroundImage:url('+domain+item.image+')'
               " v-cloak v-for="item in homeSwiper" :key="item.id">
@@ -24,17 +25,25 @@
                       <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <rect class="shape" height="34" width="90"></rect>
                       </svg>
-                      <div class="hover-text" @click="toArticle(item.id,'banner')">更多精彩</div>
+                      <div class="hover-text" @click="toArticle(item.id,'banner')">查看更多</div>
                     </div>
                   </div>
                 </div>
               </swiper-slide>
               <div class="home-swiper-pagination" slot="pagination">
               </div>
+             
             </swiper>
+             <div class="home-swiper-button-prev swiper-button-prev"></div><!--左箭头-->
+              <div class="home-swiper-button-next swiper-button-next"></div><!--右箭头-->
+            </div>
+           
+            
             <div class="newTeam">
               <div class="teamCenter">
-                <div class="team" v-cloak v-for="(item,index) in events" :key="index">
+                <div class="teamBox">
+                   
+                  <div class="team" v-cloak v-for="(item,index) in events" :key="index">
                   <div class="teamPosition">
                     <p class="ft18">{{item.cn_name}}</p>
                   <div class="teamImgBox">
@@ -57,13 +66,16 @@
                 
                 </div>
                 <div class="newTeamLeft">最新赛事</div>
+                </div>
+                
+               
                 <div class="allTeam" @click="goto('/event')">查看全部赛事</div>
               </div>
               
             </div>
           </div>
         </li>
-         <li class="adBox1">
+         <li class="adBox1" >
           <div class="center">
             <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin !==3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
               <!-- <img :src="domain+item.image" alt=""> -->
@@ -73,7 +85,7 @@
         </li>
         <li  class="list-group newVideoBox" ref="listGroup">
           <news-list-box class="d_jump"></news-list-box>
-          <!-- <videos class="d_jump"></videos> -->
+          <videos class="d_jump"></videos>
         </li>
         <!-- <li  class="list-group d_jump" ref="listGroup">
           <photos></photos>
@@ -103,7 +115,7 @@
                 <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <rect class="shape" height="34" width="90"></rect>
                 </svg>
-                <div class="hover-text" @click="toArticle(item.id,'news')">更多精彩</div>
+                <div class="hover-text" @click="toArticle(item.id,'news')">查看更多</div>
               </div>
               </div>
               
@@ -114,7 +126,6 @@
     </main>
   </div>
 </template>
-
 <script>
 import posed from 'vue-pose'
 import {swiper,swiperSlide} from "vue-awesome-swiper"
@@ -134,6 +145,10 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
             el: '.home-swiper-pagination',
             clickable :true,
           },
+          navigation:{
+            nextEl:'.home-swiper-button-next',
+            prevEl:".home-swiper-button-prev"
+          }
         },
         textList:[
         {
@@ -211,6 +226,7 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
       }
    },
    created(){
+ 
     //  赛事
      competition().then(res=>{
        if(res.status ===200){
@@ -226,9 +242,9 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
           if(res.status ===200){
             let _base = res.data.data
             this.domain  = _base.domain
-            console.log(this.domain)
             this.homeSwiper = _base.banner
             this.show = true
+        
           }else{
             this.$message.error(res.data.error)
           }
@@ -244,9 +260,7 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
      ad({type:'home'}).then(res=>{
        if(res.status ===200){
          let _base = res.data.data
-       
          this.adBox = _base.ad
-   
        }
      })
    },
@@ -292,16 +306,14 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
   main
     z-index 1
     position relative
-
     .adBox1
       display flex
       justify-content center
       .center
         width 1400px
-        height 200px
         display flex
         justify-content center
-        margin-bottom 30px
+        
         .imgBox
           width 667px
           height 200px
@@ -309,9 +321,11 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
           cursor pointer
           background-position center center
           background-size cover
+          margin-bottom 30px
           img
             width 100%
             height 100%
+       
     .adBox2
       display flex
       justify-content center
@@ -332,6 +346,8 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
     .home
       position relative
       padding-bottom 40px
+      .swiperBox
+        position relative
       .homeSwiper
         .homeSwiperSlide
           height 600px
@@ -354,6 +370,7 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
             .homeTextContent
               font-size 60px
               line-height 60px
+              font-weight 600
             .camBox
               display flex
               align-items center
@@ -397,6 +414,10 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
           display flex
           justify-content center
           position relative
+          .teamBox
+            display flex
+            justify-content center
+            position relative
           .team
             width (100/3)%
             max-width 466px
@@ -432,9 +453,10 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
               background-color #091932
           .newTeamLeft
             position absolute
-            left 60px
+            left 0
             top 60px
             font-size 40px
+            z-index 10
           .allTeam
             width 220px
             height 50px
@@ -620,7 +642,14 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
         opacity 1
         &.swiper-pagination-bullet-active
           background-color #ff8b47
-      
+  .home-swiper-button-prev
+    background-image url("../image/home/left.png")
+    &:focus
+      outline-width 0px
+  .home-swiper-button-next
+    background-image url("../image/home/right.png")
+    &:focus
+      outline-width 0px
 </style>
 
 

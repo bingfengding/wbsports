@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target:"http://10.5.45.73/api",
-        //target:"http://api.wanbosports.com/api",
+        //target:"http://10.5.45.73/api",
+        target:"http://api.wanbosports.com/api",
         changeOrigin:true,
         pathRewrite:{
           '^/api':""

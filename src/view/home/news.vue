@@ -20,7 +20,7 @@
               <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <rect class="shape" height="34" width="90"></rect>
               </svg>
-              <div class="hover-text" @click="toArticle(item.id,'news')">更多精彩</div>
+              <div class="hover-text" @click="toArticle(item.id,'news')">查看更多</div>
             </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ import {news} from "@/api/home/home"
     justify-content center
     p
       width 1380px
-      font-size 84px
+      font-size 40px
       color #ff8b47
       margin-bottom 40px
       padding-left 40px

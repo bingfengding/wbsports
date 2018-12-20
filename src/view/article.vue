@@ -60,7 +60,7 @@
                           <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
                           <rect class="shape" height="34" width="90"></rect>
                             </svg>
-                            <div class="hover-text" @click="toArticle(item.id,'news')">更多精彩</div>
+                            <div class="hover-text" @click="toArticle(item.id,'news')">查看更多</div>
                         </div>
                       </div>
                   </div>
@@ -123,7 +123,7 @@
               <svg viewBox="0 0 90 34" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape" height="34" width="90"></rect>
               </svg>
-              <div class="hover-text" @click="toArticle(item.id,'news')">更多精彩</div>
+              <div class="hover-text" @click="toArticle(item.id,'news')">查看更多</div>
             </div>
             </div>
             
