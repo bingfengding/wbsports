@@ -29,8 +29,7 @@
     </div>
     <div class="more">
       <div class="moreBox" @click="goto('news')">查看全部新闻</div>
-      
-      </div>
+    </div>
   </div>
 
 </template>

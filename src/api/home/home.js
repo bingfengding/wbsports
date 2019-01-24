@@ -23,6 +23,26 @@ export const banner = ()=>{
   })
 }
 
+//精彩视频列表页轮播
+export const videosSwiper = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/videosSwiper",
+    method:"post",
+    data
+  })
+}
+
+//精彩视频列表页轮播或每周焦点
+export const focusVideos = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/focusVideos",
+    method:"post",
+    data
+  })
+}
+
 //骑士殿堂
 export const hall = ()=>{
   return request({
@@ -74,6 +94,17 @@ export const videos = ()=>{
     method:"post",
   })
 }
+
+//精彩视频列表页
+export const videosPage = (item)=>{
+  let data = {...item}
+  return request({
+    url:"api/index/videosPage",
+    method:"post",
+    data
+  })
+}
+
 //相册
 export const gallery = ()=>{
   return request({

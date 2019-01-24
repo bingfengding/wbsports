@@ -20,8 +20,13 @@
           
        </swiper-slide>
      </swiper>
-     <div class="videos-swiper-pagination" slot="pagination"></div>
+
+     <!-- <div class="videos-swiper-pagination" slot="pagination"></div> -->
    </div>
+    <div class="more">
+      <div class="moreBox" @click="goto('videos')">查看全部视频</div>
+    </div>    
+
    </div>
    <transition name="el-fade-in">
     <div class="model" v-show="ifShowVideo" @click="modelClick">
@@ -30,7 +35,7 @@
       </div>
     </div>
    </transition>
-   
+
  </div>
 </template>
 
@@ -90,6 +95,9 @@ import {videos} from "@/api/home/home"
      
    },
    methods:{
+    goto(url){
+      this.$router.push(url)
+    },     
      openVideo(index){
        
        this.ifShowVideo = true
@@ -123,6 +131,7 @@ import {videos} from "@/api/home/home"
       color #ff8b47
       padding-bottom 50px
     .swiperBox
+      margin-bottom 40px
       .videoSwiper
         .swiperSlideVideos
           height 300px
@@ -139,6 +148,17 @@ import {videos} from "@/api/home/home"
               font-size 30px
               .textImg
                 padding-bottom 10px
+    .more
+      display flex
+      justify-content center
+    .moreBox
+      width 220px
+      height 50px
+      line-height 50px
+      color #fff
+      background-color #ff8b47
+      text-align center
+      cursor pointer
   .model
     position fixed
     top 0

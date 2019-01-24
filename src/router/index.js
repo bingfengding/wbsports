@@ -9,6 +9,8 @@ const article = r =>
   require.ensure([], () => r(require("@/view/article.vue")), "article")
 const news = r =>
   require.ensure([], () => r(require("@/view/news.vue")), "news")
+const videos = r =>
+  require.ensure([], () => r(require("@/view/videos.vue")), "videos")
 Vue.use(Router)
 
 export const RouterMap = [
@@ -34,6 +36,11 @@ export const RouterMap = [
     path: '/news',
     name: 'news',
     component: news
+  },
+  {
+    path: '/videos',
+    name: 'videos',
+    component: videos
   },
 ];
 

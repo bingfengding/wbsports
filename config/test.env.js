@@ -6,5 +6,5 @@
 module.exports = {
   NODE_ENV: '"testing"',
   ENV_CONFIG: '"test"',
-  BASE_API:'"http://api.teoffie.com"'
+  BASE_API:'"http://api.wanbosports.com/api"'
 }

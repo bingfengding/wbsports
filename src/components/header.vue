@@ -61,6 +61,9 @@ export default {
           {title:"新闻资讯",
             url:"/news"
           },
+          {title:"精彩视频",
+            url:"/videos"
+          },
         ],
       }
     },
@@ -112,8 +115,10 @@ export default {
         this.activeIndex =1
       }else if(to.name === 'news'){
          this.activeIndex =2
+      }else if(to.name === 'videos'){
+         this.activeIndex =3
       }else {
-        this.activeIndex =2
+        this.activeIndex =3
       }
     }
   },

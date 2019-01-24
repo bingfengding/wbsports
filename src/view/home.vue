@@ -75,6 +75,9 @@
             </div>
           </div>
         </li>
+        <li class="wfocusBox">
+          <wfocus></wfocus>
+        </li>
          <li class="adBox1" >
           <div class="center">
             <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin !==3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
@@ -93,7 +96,7 @@
        
        <li class="adBox2">
           <div class="center">
-            <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin ==3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
+            <div class="imgBox" v-for="(item,index) in adBox" :key="index" v-if="item.pin == 3" @click="goUrl(item.url)" :style="'backgroundImage:url('+domain+item.image+')'">
               <!-- <img :src="domain+item.image" alt=""> -->
             </div>
           </div>
@@ -133,6 +136,7 @@ import newsListBox from "./home/news"
 import videos from "./home/videos"
 import photos from "./home/photos"
 import place from "./home/place"
+import wfocus from './home/wfocus'
 import {banner, competition, hot,newslist,ad} from "@/api/home/home"
  export default {
    data () {
@@ -295,6 +299,7 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
       photos,
       place,
       videos,
+      wfocus
       
     }
  }
@@ -343,9 +348,11 @@ import {banner, competition, hot,newslist,ad} from "@/api/home/home"
           img
             width 100%
             height 100%
+    .wfocusBox
+      padding-bottom 60px
     .home
       position relative
-      padding-bottom 40px
+      // padding-bottom 40px
       .swiperBox
         position relative
       .homeSwiper

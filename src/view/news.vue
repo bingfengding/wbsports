@@ -4,14 +4,15 @@
       <div class="headerCen">
         <div class="headerText">
           <p class="title">新闻资讯</p>
-          <ul class="meunList">
-            <li v-for="(item,index) in meuns" :key="index" @click="changeMeun(index)" class="itemHeader" :class="item.id===activeIndex?'activeItem':''">
-              <p>
-                {{item.cn_name}}
-              </p>
-              <div class="line"></div>
-            </li>
-          </ul>
+           <swiper class="eventSwiper meunList" :options="eventOption" >
+              <swiper-slide v-for="(item,index) in meuns" :key="index"  class="itemHeader" :class="item.id===activeIndex?'activeItem':''">
+                <p @click="changeMeun(index)">
+                  {{item.cn_name}}
+                </p>
+                <div class="line"></div>
+              </swiper-slide>
+            </swiper>
+
         </div>
       </div>
     </div>
@@ -105,6 +106,9 @@ export default {
       domain:"",
       basePageSize:12,
       currentPage:1,
+      eventOption:{
+        slidesPerView: 'auto'
+      },
       baseBanner:require("../image/news/swiper.jpg"),
       adBox:[
         {
@@ -336,10 +340,8 @@ export default {
           color #ff8b47
           padding-bottom 30px
         .meunList
-          display flex
-          justify-content flex-start
           .itemHeader
-            margin-right 40px
+            margin-right 60px
             cursor pointer
             .line
               width 100%
@@ -519,4 +521,7 @@ export default {
       .el-input__inner
         &:focus
           border-color #ff8b47
+  .itemHeader 
+    width auto 
+    height auto
 </style>
